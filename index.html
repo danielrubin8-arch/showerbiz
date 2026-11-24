@@ -160,7 +160,7 @@ html, body { background: var(--marble); }
 .end__h { font-size: clamp(2.1rem, 1.3rem + 3.4vw, 3.2rem); font-weight: 300; line-height: 1.1; color: var(--navy-900); }
 .end__h b { font-weight: 800; }
 .end__p { margin: 6px auto 0; max-width: 30ch; color: var(--color-ink-soft); }
-.shutter-big { display: grid; justify-items: center; gap: 8px; margin: 16px auto 0; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: var(--navy-900); font-weight: 700; }
+.shutter-big { text-decoration: none; display: grid; justify-items: center; gap: 8px; margin: 16px auto 0; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: var(--navy-900); font-weight: 700; }
 .shutter-big__ring { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 0 0 5px rgb(255 255 255 / 0.6), var(--shadow-lg); transition: transform var(--dur-fast) var(--ease); }
 .shutter-big__core { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(180deg, var(--aqua-600), var(--aqua-700)); color: #fff; }
 .shutter-big__core .icon { width: 28px; height: 28px; }
@@ -172,7 +172,7 @@ html, body { background: var(--marble); }
 .dock { position: fixed; z-index: 18; inset-inline: 0; inset-block-end: 0; display: flex; gap: 8px; padding: 8px var(--gutter) calc(10px + env(safe-area-inset-bottom));
   transition: transform var(--dur) var(--ease), opacity var(--dur); }
 .dock.is-away { transform: translateY(110%); opacity: 0; pointer-events: none; }
-.shutter { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border: 0; border-radius: 99px; cursor: pointer;
+.shutter { text-decoration: none; flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; border: 0; border-radius: 99px; cursor: pointer;
   background: linear-gradient(180deg, var(--aqua-600), var(--aqua-700)); color: #fff; font: inherit; font-size: 1.05rem; font-weight: 700; box-shadow: var(--shadow-cta); }
 .shutter__dot { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--aqua-700); }
 .shutter__dot .icon { width: 15px; height: 15px; }
@@ -312,10 +312,10 @@ html, body { background: var(--marble); }
   <section class="win win--end" data-win="4" aria-labelledby="h-end">
     <h2 class="end__h" id="h-end">עכשיו <b>תורכם.</b></h2>
     <p class="end__p">צלמו את המקלחון ושלחו. תקבלו מחיר מדויק.</p>
-    <button class="shutter-big" type="button" data-shutter>
+    <a class="shutter-big" data-shutter data-wa="היי, אשמח להצעת מחיר לניקוי המקלחון. אשלח תמונה כאן.">
       <span class="shutter-big__ring"><span class="shutter-big__core"><svg class="icon"><use href="#i-camera"/></svg></span></span>
       <span data-shutter-label>צלמו ושלחו</span>
-    </button>
+    </a>
     <div class="end__alt">
       <a data-wa>כתבו בוואטסאפ</a>
       <a data-tel>חייגו</a>
@@ -325,7 +325,7 @@ html, body { background: var(--marble); }
 </main>
 
 <div class="dock">
-  <button class="shutter" type="button" data-shutter><span class="shutter__dot"><svg class="icon"><use href="#i-camera"/></svg></span><span data-shutter-label>צלמו את המקלחון</span></button>
+  <a class="shutter" data-shutter data-wa="היי, אשמח להצעת מחיר לניקוי המקלחון. אשלח תמונה כאן."><span class="shutter__dot"><svg class="icon"><use href="#i-camera"/></svg></span><span data-shutter-label>צלמו את המקלחון</span></a>
   <a class="icon-btn" data-wa aria-label="לכתוב בוואטסאפ"><svg class="icon"><use href="#i-wa"/></svg></a>
 </div>
 <input type="file" accept="image/*" capture="environment" id="snap-input" hidden>
@@ -337,6 +337,7 @@ html, body { background: var(--marble); }
   <div class="btn-row" style="justify-content:center">
     <button class="btn btn--wa" type="button" id="snap-send"><svg class="icon"><use href="#i-wa"/></svg>שליחה</button>
     <button class="btn btn--outline" type="button" id="snap-retake">צילום מחדש</button>
+    <a class="btn btn--wa" id="snap-wa" data-wa="היי, אשמח להצעת מחיר לניקוי המקלחון. אשלח תמונה כאן." hidden>פתיחת וואטסאפ</a>
   </div>
 </dialog>
 
@@ -510,16 +511,21 @@ html, body { background: var(--marble); }
   const touch = matchMedia("(pointer: coarse)").matches;
   let canShareFiles = false;
   try { canShareFiles = !!(navigator.canShare && navigator.canShare({ files: [new File(["x"], "x.jpg", { type: "image/jpeg" })] })); } catch (e) {}
-  const cameraFlow = touch && canShareFiles;
-  const waFallback = () => open(waLink("היי, אשמח להצעת מחיר לניקוי המקלחון. אשלח תמונה כאן."), "_blank", "noopener");
+  // מסלול המצלמה רק כשהדף פתוח ישירות (לא בתוך מסגרת) ושיתוף קבצים נתמך; אחרת הכפתור הוא קישור וואטסאפ רגיל
+  const framed = window.top !== window.self;
+  const cameraFlow = touch && canShareFiles && !framed;
   if (!cameraFlow) document.querySelectorAll("[data-shutter-label]").forEach((el) => (el.textContent = "שלחו תמונה בוואטסאפ"));
 
   let file = null;
-  document.querySelectorAll("[data-shutter]").forEach((b) => b.addEventListener("click", () => cameraFlow ? input.click() : waFallback()));
+  document.querySelectorAll("[data-shutter]").forEach((b) => b.addEventListener("click", (e) => {
+    if (!cameraFlow) return;            // הקישור לוואטסאפ עושה את העבודה
+    e.preventDefault(); input.click();
+  }));
   input.addEventListener("change", () => {
     file = input.files && input.files[0];
     if (!file) return;
     snapImg.src = URL.createObjectURL(file);
+    document.getElementById("snap-wa").hidden = true;
     snap.showModal();
   });
   document.getElementById("snap-retake").addEventListener("click", () => { snap.close(); input.value = ""; input.click(); });
@@ -529,8 +535,7 @@ html, body { background: var(--marble); }
       snap.close();
     } catch (e) {
       if (e && e.name === "AbortError") return;
-      snap.close();
-      waFallback();
+      document.getElementById("snap-wa").hidden = false;   // שיתוף נכשל: קישור רגיל
     }
   });
 
