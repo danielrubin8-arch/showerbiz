@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>תוכנית דף הנחיתה | מקלחון תל אביב</title>
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Rubik:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<style>
+  body { background: var(--marble); }
+  .top { position: relative; overflow: hidden; padding-block: var(--sp-12) var(--sp-10); background: linear-gradient(135deg, var(--aqua-50) 0%, var(--white) 50%, var(--leaf-50) 100%); border-bottom: 1px solid var(--color-line); }
+  .top__grid { display: grid; gap: var(--sp-8); align-items: center; }
+  @media (min-width: 900px) { .top__grid { grid-template-columns: 1.3fr 1fr; } }
+  .top p { color: var(--color-ink-soft); max-width: 620px; }
+  .top__img { justify-self: center; width: min(280px, 70vw); aspect-ratio: 9 / 14; border-radius: var(--radius-arch); background: url("assets/img/hero-clean-900.webp") center 35% / cover; box-shadow: var(--shadow-lg); outline: 10px solid var(--white); }
+  .facts { display: grid; gap: var(--sp-3); margin-block-start: var(--sp-6); }
+  @media (min-width: 640px) { .facts { grid-template-columns: repeat(3, 1fr); } }
+  .fact { padding: var(--sp-4); border-radius: var(--radius-md); background: var(--white); border: 1px solid var(--color-line); font-size: var(--fs-sm); }
+  .fact b { display: block; font-family: var(--font-display); font-size: var(--fs-md); color: var(--navy-800); }
+
+  .block { padding-block: var(--sp-16); }
+  .block + .block { border-top: 1px solid var(--color-line); }
+  .block h2 { font-size: var(--fs-2xl); margin-block: var(--sp-2) var(--sp-3); }
+  .block > .container > p { color: var(--color-ink-soft); max-width: 680px; margin-block-end: var(--sp-8); }
+
+  /* מבנה הדף */
+  .outline { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); counter-reset: s; }
+  @media (min-width: 900px) { .outline { grid-template-columns: 1fr 1fr; } }
+  .outline li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: var(--sp-3); padding: var(--sp-4); background: var(--white); border: 1px solid var(--color-line); border-radius: var(--radius-md); }
+  .outline li::before { content: counter(s); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--aqua-100); color: var(--aqua-700); font-family: var(--font-display); font-weight: 800; }
+  .outline li.key::before { background: var(--leaf-600); color: #fff; }
+  .outline b { font-family: var(--font-display); }
+  .outline p { font-size: var(--fs-sm); color: var(--color-muted); }
+
+  /* גלריית גרסאות */
+  .versions { display: grid; gap: var(--sp-8); }
+  @media (min-width: 700px) { .versions { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .versions { grid-template-columns: repeat(3, 1fr); } }
+  .v { display: flex; flex-direction: column; gap: var(--sp-4); }
+  .phone { position: relative; width: 300px; height: 620px; margin-inline: auto; border-radius: 44px; padding: 12px; background: var(--navy-950); box-shadow: var(--shadow-lg); }
+  .phone::before { content: ""; position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 90px; height: 22px; border-radius: 12px; background: var(--navy-950); z-index: 2; }
+  .phone__screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: var(--white); }
+  .phone iframe { display: block; width: 375px; height: 810px; border: 0; transform: scale(0.736); transform-origin: top right; }
+  .v__meta { text-align: center; }
+  .v__meta h3 { font-size: var(--fs-lg); }
+  .v__meta p { font-size: var(--fs-sm); color: var(--color-muted); margin-block: var(--sp-1) var(--sp-3); }
+  .v__dots { display: flex; justify-content: center; gap: 6px; margin-block-end: var(--sp-3); }
+  .v__dots i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgb(0 0 0 / 0.08); }
+  .v__links { display: flex; justify-content: center; gap: var(--sp-2); }
+  .v--ds .phone { display: grid; place-items: center; background: linear-gradient(160deg, var(--aqua-100), var(--leaf-100)); }
+  .v--ds .phone::before { display: none; }
+  .ds-card { text-align: center; padding: var(--sp-6); }
+  .ds-card .sw-row { display: grid; grid-template-columns: repeat(4, 36px); gap: 8px; justify-content: center; margin-block: var(--sp-4); }
+  .ds-card .sw-row i { width: 36px; height: 36px; border-radius: 10px; }
+
+  /* שאלות פתוחות */
+  .qs { display: grid; gap: var(--sp-3); counter-reset: q; }
+  @media (min-width: 900px) { .qs { grid-template-columns: 1fr 1fr; } }
+  .q { counter-increment: q; padding: var(--sp-5); border-radius: var(--radius-md); background: var(--white); border-inline-start: 4px solid var(--aqua-600); }
+  .q b::before { content: counter(q) ". "; color: var(--aqua-700); }
+  .q p { font-size: var(--fs-sm); color: var(--color-muted); margin-block-start: var(--sp-1); }
+  .q--must { border-inline-start-color: var(--star); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="container top__grid">
+    <div>
+      <a class="brand" href="#"><img class="brand__icon" src="assets/img/logo-icon-256.png" alt="" width="42" height="52"><span><span class="brand__name">מקלחון <b>תל אביב</b></span><span class="brand__tag">ניקוי מקלחונים וחדרי רחצה</span></span></a>
+      <h1 class="h1" style="font-size:var(--fs-2xl);margin-block:var(--sp-6) var(--sp-3)">תוכנית דף הנחיתה</h1>
+      <p>דף אחד, בעברית, לתושבי תל אביב והמרכז. המטרה היחידה: שהמבקר ישלח תמונה של המקלחון בוואטסאפ או יתקשר. חמש גרסאות עיצוב על אותה תמונת רקע ועל אותה מערכת עיצוב, כדי לבחור כיוון אחד ולהמשיך איתו.</p>
+      <div class="facts">
+        <div class="fact"><b>קהל</b>שוכרים ובעלי דירות בתל אביב, רוב הגלישה מהטלפון</div>
+        <div class="fact"><b>פעולה</b>וואטסאפ עם תמונה, ואם לא אז שיחה</div>
+        <div class="fact"><b>עיצוב</b>לבן ושיש, נייבי וטורקיז מהלוגו, ירוק מהצמחייה</div>
+      </div>
+    </div>
+    <div class="top__img" role="img" aria-label="תמונת הרקע: חדר רחצה עם מקלחון זכוכית וצמחי פוטוס"></div>
+  </div>
+</header>
+
+<section class="block" id="versions">
+  <div class="container">
+    <span class="eyebrow">חמש גרסאות</span>
+    <h2>אותו תוכן, חמישה כיוונים</h2>
+    <p>כל הגרסאות חיות ונגללות בתוך הטלפון. "פתח" פותח את הגרסה בגודל מלא, וכדאי לראות כל אחת גם במחשב וגם בטלפון. אפשר לבחור אחת, או לקחת חלקים מכמה.</p>
+    <div class="versions">
+      <article class="v">
+        <div class="phone"><div class="phone__screen"><iframe src="versions/v1-glass.html" title="גרסה 1" loading="lazy"></iframe></div></div>
+        <div class="v__meta">
+          <div class="v__dots"><i style="background:var(--white)"></i><i style="background:var(--aqua-500)"></i><i style="background:var(--navy-800)"></i><i style="background:var(--leaf-600)"></i></div>
+          <h3>1 · זכוכית</h3>
+          <p>הכי קרובה לרפרנסים: התמונה על כל המסך, כותרת וכפתורים בזכוכית שקופה. בהירה ואוורירית.</p>
+          <div class="v__links"><a class="btn btn--primary btn--sm" href="versions/v1-glass.html">פתח</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="phone"><div class="phone__screen"><iframe src="versions/v2-window.html" title="גרסה 2" loading="lazy"></iframe></div></div>
+        <div class="v__meta">
+          <div class="v__dots"><i style="background:var(--marble)"></i><i style="background:var(--leaf-700)"></i><i style="background:var(--leaf-50)"></i><i style="background:var(--aqua-600)"></i></div>
+          <h3>2 · חלון</h3>
+          <p>התמונה בתוך קשת כמו החלונות שבה. נקייה, מגזינית, עם אזורים ירוקים.</p>
+          <div class="v__links"><a class="btn btn--primary btn--sm" href="versions/v2-window.html">פתח</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="phone"><div class="phone__screen"><iframe src="versions/v3-botanical.html" title="גרסה 3" loading="lazy"></iframe></div></div>
+        <div class="v__meta">
+          <div class="v__dots"><i style="background:var(--leaf-800)"></i><i style="background:var(--leaf-50)"></i><i style="background:var(--aqua-300)"></i><i style="background:var(--navy-800)"></i></div>
+          <h3>3 · בוטני</h3>
+          <p>ספא שקט ויוקרתי. ירוק כהה הוא הצבע הראשי, כותרות בסריף ועלי פוטוס מצוירים.</p>
+          <div class="v__links"><a class="btn btn--primary btn--sm" href="versions/v3-botanical.html">פתח</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="phone"><div class="phone__screen"><iframe src="versions/v4-terrazzo.html" title="גרסה 4" loading="lazy"></iframe></div></div>
+        <div class="v__meta">
+          <div class="v__dots"><i style="background:var(--stone-100)"></i><i style="background:var(--navy-800)"></i><i style="background:var(--aqua-500)"></i><i style="background:var(--leaf-500)"></i></div>
+          <h3>4 · טרצו</h3>
+          <p>שובבה ומקומית. רצפת הטרצו מהתמונה הופכת לטקסטורה, עם מדבקות וכרטיסים עבים.</p>
+          <div class="v__links"><a class="btn btn--primary btn--sm" href="versions/v4-terrazzo.html">פתח</a></div>
+        </div>
+      </article>
+      <article class="v">
+        <div class="phone"><div class="phone__screen"><iframe src="versions/v5-quote.html" title="גרסה 5" loading="lazy"></iframe></div></div>
+        <div class="v__meta">
+          <div class="v__dots"><i style="background:var(--navy-950)"></i><i style="background:var(--white)"></i><i style="background:var(--wa-green)"></i><i style="background:var(--leaf-100)"></i></div>
+          <h3>5 · הצעה מהירה</h3>
+          <p>כמו אפליקציה: שלוש בחירות, הערכת מחיר, והודעה מוכנה בוואטסאפ. הכי ממוקדת בהמרה.</p>
+          <div class="v__links"><a class="btn btn--primary btn--sm" href="versions/v5-quote.html">פתח</a></div>
+        </div>
+      </article>
+      <article class="v v--ds">
+        <div class="phone"><div class="ds-card">
+          <img src="assets/img/logo-icon-256.png" alt="" style="width:72px;margin-inline:auto">
+          <div class="sw-row"><i style="background:var(--navy-800)"></i><i style="background:var(--aqua-600)"></i><i style="background:var(--leaf-600)"></i><i style="background:var(--stone-300)"></i></div>
+          <b style="font-family:var(--font-display);font-size:var(--fs-lg)">מערכת העיצוב</b>
+          <p class="muted" style="font-size:var(--fs-sm);margin-block-start:var(--sp-2)">צבעים, פונטים, כפתורים ורכיבים שכל הגרסאות בנויות מהם</p>
+        </div></div>
+        <div class="v__meta">
+          <h3>מערכת העיצוב</h3>
+          <p>טוקנים, רכיבים וכללים. כל שינוי כאן משנה את כל הגרסאות.</p>
+          <div class="v__links"><a class="btn btn--leaf btn--sm" href="design-system/index.html">פתח</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block section--stone">
+  <div class="container">
+    <span class="eyebrow">מבנה הדף</span>
+    <h2>מה יש בדף, מלמעלה למטה</h2>
+    <p>אותו סדר בכל הגרסאות (גרסה 5 מקצרת). הירוקים הם המקומות שבהם המבקר אמור לפעול.</p>
+    <ol class="outline">
+      <li class="key"><div><b>ראש הדף וגיבור</b><p>לוגו, טלפון, וואטסאפ. כותרת: "הניקוי היסודי והעמוק ביותר למקלחון", שני כפתורים, שלושה יתרונות ודירוג.</p></div></li>
+      <li><div><b>הבעיות</b><p>אבנית, עובש ברובה, סיליקון שחור, ברזים סתומים. המבקר מזהה את המקלחת שלו.</p></div></li>
+      <li><div><b>שירותים</b><p>שישה שירותים: מקלחון, רובה, סיליקון, ציפוי מגן, ברזים, חדר רחצה מלא.</p></div></li>
+      <li><div><b>לפני ואחרי</b><p>סליידר גרירה. צריך תמונות אמיתיות מעבודות.</p></div></li>
+      <li><div><b>איך זה עובד</b><p>שולחים תמונה, מקבלים מחיר, קובעים מועד, נהנים.</p></div></li>
+      <li class="key"><div><b>מחירון</b><p>שלוש חבילות "החל מ-", כל אחת עם כפתור להצעת מחיר בוואטסאפ.</p></div></li>
+      <li><div><b>ביקורות</b><p>שלוש ביקורות קצרות עם שם ושכונה. רק ביקורות אמיתיות.</p></div></li>
+      <li><div><b>שאלות נפוצות</b><p>זמן, חומרים, האם האבנית חוזרת, צריך להיות בבית, אזורים.</p></div></li>
+      <li class="key"><div><b>קריאה לפעולה אחרונה</b><p>"המקלחת שלכם יכולה להיראות ככה מחר", וואטסאפ וטלפון.</p></div></li>
+      <li class="key"><div><b>פס תחתון קבוע במובייל</b><p>חייגו + הצעת מחיר בוואטסאפ, תמיד באגודל.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="questions">
+  <div class="container">
+    <span class="eyebrow">מה חסר לנו</span>
+    <h2>שאלות לפני שבוחרים וממשיכים</h2>
+    <p>הצהובות חייבות תשובה לפני שהדף עולה לאוויר. כל מה שמסומן בצהוב בגרסאות הוא דוגמה.</p>
+    <div class="qs">
+      <div class="q q--must"><b>שם העסק בעברית</b><p>בלוגו כתוב miklachon.tlv. בדף כתבנו "מקלחון תל אביב". מה השם הנכון?</p></div>
+      <div class="q q--must"><b>טלפון ווואטסאפ</b><p>מספר אחד לשניהם? שעות פעילות?</p></div>
+      <div class="q q--must"><b>שירותים ומחירים</b><p>אילו שירותים באמת נותנים, ומחירי "החל מ-" לכל אחד.</p></div>
+      <div class="q q--must"><b>דירוג וביקורות</b><p>יש ביקורות בגוגל או בפייסבוק? כמה לקוחות היו? בלי מספר אמיתי מורידים את השורה.</p></div>
+      <div class="q q--must"><b>תמונות לפני ואחרי</b><p>יש תמונות מעבודות? הסליידר בנוי, חסרות רק התמונות.</p></div>
+      <div class="q"><b>אזורי שירות</b><p>רק תל אביב, או גם רמת גן, גבעתיים, חולון, בת ים, הרצליה?</p></div>
+      <div class="q"><b>דומיין ואחסון</b><p>יש דומיין? אפשר להעלות חינם ל-GitHub Pages מהריפו הזה.</p></div>
+      <div class="q"><b>טופס או רק וואטסאפ</b><p>להשאיר רק וואטסאפ וטלפון, או גם טופס שנשלח למייל?</p></div>
+      <div class="q"><b>מי עושה את העבודה</b><p>בעל העסק לבד, עם תמונה ושם? זה מעלה אמון בדף של שירות ביתי.</p></div>
+      <div class="q"><b>מה מבדל אותו</b><p>חומרים ירוקים? אחריות? הגעה מהירה? משהו שאפשר להבטיח באמת.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer__bottom" style="border:0;margin:0;padding:0">ריפו showerbiz · טיוטת תוכנית ועיצוב · 2026</div></div></footer>
+
+<script src="design-system/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* ==========================================================
+   מערכת העיצוב · טוקנים
+   מקור הצבעים: הלוגו (כחול נייבי + טורקיז מים), תמונת הרקע
+   (מגבת ושטיח כחולים, טרצו, שיש) והצמחייה (פוטוס ירוק).
+   כל גרסה יכולה לדרוס רק את הטוקנים הסמנטיים (--color-*, --font-*)
+   ולא את הפלטה עצמה.
+   ========================================================== */
+
+:root {
+  /* ---------- פלטה ---------- */
+  /* נייבי: טקסט הלוגו */
+  --navy-950: #0a1c31;
+  --navy-900: #0f2742;
+  --navy-800: #16365c;
+  --navy-600: #2a5784;
+  --navy-400: #6f8fb1;
+
+  /* מים: הטורקיז שבלוגו */
+  --aqua-700: #0a7ea8;
+  --aqua-600: #0b93c4;
+  --aqua-500: #1fb0de;
+  --aqua-300: #7fd3ec;
+  --aqua-100: #ddf3f8;
+  --aqua-50:  #f1fafc;
+
+  /* טקסטיל: המגבת והשטיח בתמונה */
+  --towel-500: #4a8fc0;
+  --slate-600: #48677d;
+
+  /* צמחייה: הפוטוס בחלון */
+  --leaf-800: #1f4d22;
+  --leaf-700: #2f6b2e;
+  --leaf-600: #3f8235;
+  --leaf-500: #5e9b3a;
+  --leaf-300: #a8c97a;
+  --leaf-100: #e3efd6;
+  --leaf-50:  #f2f7ec;
+
+  /* אבן: הטרצו והשיש */
+  --stone-700: #6b6058;
+  --stone-500: #8a7e74;
+  --stone-300: #c9c0b6;
+  --stone-100: #ece8e2;
+  --marble:    #f7f6f3;
+  --white:     #ffffff;
+
+  /* פונקציונליים */
+  --wa-green: #14833f;      /* וואטסאפ, כהה מעט מהמקורי כדי שטקסט לבן יעבור ניגודיות 4.5:1 */
+  --wa-green-dark: #0f6e34;
+  --star: #f5b324;
+  --danger: #c2413b;
+
+  /* ---------- סמנטיים (גרסאות דורסות כאן) ---------- */
+  --color-bg: var(--white);
+  --color-surface: var(--marble);
+  --color-surface-2: var(--aqua-50);
+  --color-ink: var(--navy-900);
+  --color-ink-soft: #3d5168;
+  --color-muted: #5d6d7f;
+  --color-line: #e2e8ee;
+  --color-primary: var(--aqua-600);
+  --color-primary-strong: var(--aqua-700);
+  --color-primary-soft: var(--aqua-100);
+  --color-accent: var(--leaf-600);
+  --color-accent-soft: var(--leaf-100);
+  --color-on-primary: var(--white);
+  --color-on-dark: var(--white);
+
+  /* ---------- טיפוגרפיה ---------- */
+  --font-display: "Rubik", "Heebo", system-ui, sans-serif;
+  --font-body: "Heebo", "Rubik", system-ui, sans-serif;
+
+  /* סולם גדלים נוזלי: מובייל 375 עד דסקטופ 1280 */
+  --fs-xs: 0.8125rem;                               /* 13 */
+  --fs-sm: 0.9375rem;                               /* 15 */
+  --fs-md: 1.0625rem;                               /* 17, גוף */
+  --fs-lg: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  --fs-xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --fs-2xl: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);
+  --fs-3xl: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);  /* כותרת ראשית */
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.3;
+  --lh-body: 1.65;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fw-black: 800;
+
+  /* ---------- מרווחים (בסיס 4) ---------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+  --section-y: clamp(56px, 8vw, 112px);
+  --gutter: 16px;
+  --container: 1160px;
+
+  /* ---------- צורות ---------- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --radius-arch: 999px 999px var(--radius-lg) var(--radius-lg); /* קשת כמו החלונות */
+
+  /* ---------- צללים וזכוכית ---------- */
+  --shadow-sm: 0 1px 2px rgb(15 39 66 / 0.06), 0 2px 6px rgb(15 39 66 / 0.06);
+  --shadow-md: 0 4px 12px rgb(15 39 66 / 0.08), 0 12px 32px rgb(15 39 66 / 0.08);
+  --shadow-lg: 0 10px 30px rgb(15 39 66 / 0.12), 0 30px 60px rgb(15 39 66 / 0.12);
+  --shadow-cta: 0 8px 24px rgb(11 147 196 / 0.35);
+
+  --glass-bg: rgb(255 255 255 / 0.62);
+  --glass-border: rgb(255 255 255 / 0.75);
+  --glass-blur: 14px;
+
+  /* ---------- תנועה ---------- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur: 260ms;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; }
+}

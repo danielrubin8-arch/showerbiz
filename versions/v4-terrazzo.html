@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>גרסה 4 · טרצו | מקלחון תל אביב</title>
+<meta name="description" content="ניקוי יסודי למקלחון ולחדר הרחצה בתל אביב והמרכז: אבנית, עובש, רובה וסיליקון.">
+<link rel="icon" href="../assets/img/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system/tokens.css">
+<link rel="stylesheet" href="../design-system/components.css">
+<style>
+  /* גרסה 4: טרצו. שובבה ומקומית: רצפת הטרצו מהתמונה הופכת לטקסטורה של הדף,
+     קווי מתאר נייבי עבים, צללים אטומים מוסטים ומדבקות מסובבות. */
+  :root {
+    --font-display: "Rubik", system-ui, sans-serif;
+    --font-body: "Rubik", system-ui, sans-serif;
+    --color-bg: var(--marble);
+    --color-surface: var(--stone-100);
+    --color-muted: var(--slate-600);
+    --color-primary: var(--navy-800);
+    --color-primary-soft: var(--aqua-100);
+    --color-accent: var(--leaf-700);
+    --color-accent-soft: var(--leaf-100);
+    /* כיוון הצל: ב-RTL הצד inline-end הוא שמאל, לכן ההיסט האופקי שלילי */
+    --sx: -1;
+    --line: 2px solid var(--navy-900);
+  }
+  [dir="ltr"] { --sx: 1; }
+
+  /* ---------- טקסטורת טרצו: שבבים לא סדירים, אריחים בגדלים ראשוניים כדי שלא תורגש חזרה ---------- */
+  .terrazzo {
+    background-color: var(--marble);
+    background-image:
+      radial-gradient(7px 4.5px at 22% 31%, var(--stone-300) 90%, transparent),
+      radial-gradient(4.5px 5.5px at 25% 34%, var(--stone-300) 90%, transparent),
+      radial-gradient(5px 3.5px at 64% 52%, var(--stone-300) 90%, transparent),
+      radial-gradient(3.5px 3px at 37% 71%, var(--stone-500) 90%, transparent),
+      radial-gradient(2.5px 2px at 74% 18%, var(--stone-500) 90%, transparent),
+      radial-gradient(2px 1.5px at 51% 44%, var(--navy-400) 90%, transparent),
+      radial-gradient(2.5px 2px at 13% 83%, var(--navy-400) 90%, transparent),
+      radial-gradient(4px 2.5px at 82% 66%, var(--aqua-300) 90%, transparent),
+      radial-gradient(2px 3px at 29% 12%, var(--aqua-300) 90%, transparent),
+      radial-gradient(5px 3.5px at 58% 79%, var(--leaf-300) 90%, transparent),
+      radial-gradient(3px 4px at 61% 82%, var(--leaf-300) 90%, transparent),
+      radial-gradient(2.5px 2px at 88% 38%, var(--leaf-300) 90%, transparent),
+      radial-gradient(1.2px 1.2px at 40% 60%, var(--stone-500) 90%, transparent),
+      radial-gradient(1px 1px at 70% 30%, var(--stone-500) 90%, transparent),
+      radial-gradient(1.5px 1px at 20% 50%, var(--stone-300) 90%, transparent),
+      linear-gradient(160deg, var(--marble), var(--stone-100));
+    background-size: 193px 181px, 193px 181px, 113px 97px, 89px 103px, 61px 71px, 107px 83px, 167px 139px,
+      131px 109px, 79px 97px, 211px 197px, 211px 197px, 97px 151px, 19px 23px, 29px 17px, 37px 41px, 100% 100%;
+  }
+
+  /* ---------- שפה משותפת: מתאר עבה + צל אטום מוסט ---------- */
+  .chunk, .card, .step, .faq details, .ba { --pc: var(--navy-900); border: var(--line); border-radius: var(--radius-xl); box-shadow: calc(var(--sx) * 6px) 6px 0 var(--pc); }
+  .btn { --pc: var(--navy-900); border: var(--line); box-shadow: calc(var(--sx) * 4px) 4px 0 var(--pc); }
+  .btn:hover { transform: translate(calc(var(--sx) * 2px), 2px); box-shadow: calc(var(--sx) * 2px) 2px 0 var(--pc); }
+  .btn:active { transform: translate(calc(var(--sx) * 4px), 4px); box-shadow: none; }
+  .btn--wa { --btn-bg: var(--leaf-700); }
+  .btn--wa:hover { --btn-bg: var(--leaf-800); }
+  .btn--outline { --btn-bg: var(--white); --btn-fg: var(--navy-900); }
+  .btn--white { --btn-bg: var(--white); --btn-fg: var(--navy-900); }
+  .icon-btn { border: var(--line); background: var(--aqua-100); }
+
+  .eyebrow { padding: 4px 14px; border: var(--line); border-radius: var(--radius-pill); background: var(--leaf-100); color: var(--leaf-800); rotate: -2deg; }
+  .eyebrow::before, .section-head--center .eyebrow::after { display: none; }
+  .h2 { font-weight: var(--fw-black); letter-spacing: -0.015em; }
+  .section-head .h2 { margin-block: var(--sp-4) var(--sp-3); }
+
+  .sticker { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: var(--line); border-radius: var(--radius-pill);
+    font-family: var(--font-display); font-weight: var(--fw-black); font-size: 1.2rem; line-height: 1.1; white-space: nowrap; box-shadow: calc(var(--sx) * 3px) 3px 0 var(--navy-900); }
+  .sticker .icon { width: 1em; height: 1em; stroke-width: 2.5; }
+  .sticker--aqua { background: var(--aqua-500); color: var(--navy-950); rotate: -7deg; }
+  .sticker--leaf { background: var(--leaf-500); color: var(--white); rotate: 5deg; }
+
+  /* ---------- כותרת ---------- */
+  .site-header { padding-block: var(--sp-4) 0; }
+  .site-header__bar { background: var(--white); border: var(--line); border-radius: var(--radius-xl); box-shadow: calc(var(--sx) * 4px) 4px 0 var(--navy-900); }
+  .nav a:hover { color: var(--leaf-700); }
+
+  /* ---------- גיבור ---------- */
+  .hero { display: grid; gap: var(--sp-8); grid-template-areas: "copy" "photo" "actions"; padding-block: var(--sp-8) var(--sp-16); }
+  .hero__copy { grid-area: copy; }
+  .hero h1 { font-size: clamp(2.6rem, 1.5rem + 4.6vw, 4.75rem); font-weight: var(--fw-black); line-height: 0.98; letter-spacing: -0.025em; color: var(--navy-900); text-wrap: balance; }
+  .mark { background: linear-gradient(transparent 60%, var(--aqua-300) 60% 92%, transparent 92%); padding-inline: 0.06em; }
+  .hero .lead { margin-block-start: var(--sp-4); max-width: 32ch; color: var(--navy-800); font-weight: var(--fw-medium); }
+  .photo { grid-area: photo; position: relative; margin-inline: 6px; }
+  .photo__frame { aspect-ratio: 10 / 11; border: 3px solid var(--navy-900); border-radius: var(--radius-xl); box-shadow: calc(var(--sx) * 8px) 8px 0 var(--navy-900);
+    background: var(--stone-100) url("../assets/img/hero-clean-900.webp") 50% 55% / cover no-repeat; }
+  .photo .sticker--aqua { inset-block-start: -16px; inset-inline-start: -6px; }
+  .photo .sticker--leaf { inset-block-end: 26px; inset-inline-end: -10px; }
+  .hero__actions { grid-area: actions; display: grid; gap: var(--sp-5); }
+  .hero .btn-row { flex-direction: column; }
+  .rating { justify-self: start; background: var(--white); border: var(--line); border-radius: var(--radius-lg); }
+  @media (min-width: 960px) {
+    .hero { grid-template-columns: 1.05fr 0.95fr; grid-template-areas: "copy photo" "actions photo"; column-gap: var(--sp-16); row-gap: var(--sp-8); align-items: center; padding-block: var(--sp-12) var(--sp-20); }
+    .hero__copy { align-self: end; }
+    .hero__actions { align-self: start; }
+    .hero .btn-row { flex-direction: row; }
+    .photo { width: min(100%, 410px); margin-inline: auto; rotate: -2deg; }
+    .photo__frame { aspect-ratio: auto; height: 520px; background-image: url("../assets/img/hero-clean-2k.webp"); }
+    .photo .sticker { font-size: 1.4rem; padding: 10px 20px; }
+    .photo .sticker--aqua { inset-block-start: 36px; inset-inline-start: -44px; }
+    .photo .sticker--leaf { inset-block-end: 64px; inset-inline-end: -52px; }
+  }
+
+  /* ---------- בעיות ---------- */
+  .problems { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+  @media (min-width: 768px) { .problems { grid-template-columns: repeat(4, 1fr); gap: var(--sp-6); } }
+  .problem { padding: var(--sp-5); background: var(--white); border-radius: var(--radius-lg); }
+  .problem h3 { font-size: var(--fs-md); margin-block: var(--sp-3) var(--sp-1); }
+  .problem p { font-size: var(--fs-sm); color: var(--color-ink-soft); line-height: 1.45; }
+  .dot { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: var(--line); background: var(--aqua-100); color: var(--navy-900); }
+  .dot .icon { width: 24px; height: 24px; }
+  .problem:nth-child(even) .dot { background: var(--leaf-100); }
+
+  /* ---------- שירותים: בנטו ---------- */
+  .bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+  .tile { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-5); }
+  .tile p { font-size: var(--fs-sm); color: var(--color-ink-soft); line-height: 1.5; }
+  .tile .dot { background: var(--white); }
+  .tile--big, .tile--wide { grid-column: span 2; }
+  .tile--navy { --pc: var(--aqua-500); background: var(--navy-800); color: var(--white); }
+  .tile--navy p { color: var(--aqua-100); }
+  .tile--navy .dot { background: var(--aqua-500); }
+  .tile--navy .ticks .icon { color: var(--leaf-300); }
+  .tile--aqua { background: var(--aqua-100); }
+  .tile--leaf { background: var(--leaf-100); }
+  .tile--marble { background: var(--marble); }
+  .tile--big h3 { font-size: var(--fs-xl); font-weight: var(--fw-black); }
+  .tile--big .ticks { margin-block-start: auto; }
+  .tile__from { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-lg); color: var(--aqua-300); }
+  @media (min-width: 960px) {
+    .bento { grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(190px, auto); gap: var(--sp-6); }
+    .tile { padding: var(--sp-6); }
+    .tile--big { grid-row: span 2; padding: var(--sp-8); }
+    .tile--wide-lg { grid-column: span 2; }
+  }
+
+  /* ---------- רצועת טרצו: לפני / אחרי ---------- */
+  .ba-wrap { display: grid; gap: var(--sp-8); align-items: center; }
+  @media (min-width: 900px) { .ba-wrap { grid-template-columns: 0.9fr 1.1fr; gap: var(--sp-12); } }
+  .ba-card { background: var(--white); padding: var(--sp-8) var(--sp-6); }
+  .ba-card .h2 { margin-block: var(--sp-4) var(--sp-3); }
+  .ba-card .ticks { margin-block-start: var(--sp-6); font-size: var(--fs-md); }
+  .ba { --pc: var(--leaf-500); border-width: 3px; }
+
+  /* ---------- שלבים ---------- */
+  .step { box-shadow: calc(var(--sx) * 4px) 4px 0 var(--pc); }
+  .step::before { width: 52px; height: 52px; border: var(--line); background: var(--aqua-500); color: var(--navy-950); font-size: 1.4rem; rotate: -8deg; }
+  .step:nth-child(even)::before { background: var(--leaf-300); rotate: 6deg; }
+  @media (max-width: 959px) {
+    .step { display: grid; grid-template-columns: auto 1fr; column-gap: var(--sp-4); align-items: center; padding: var(--sp-5); }
+    .step::before { grid-row: span 2; margin: 0; }
+  }
+
+  /* ---------- מחירון ---------- */
+  .price-card { padding: var(--sp-8) var(--sp-6) var(--sp-6); background: var(--white); }
+  .price-card--featured { background: var(--leaf-700); color: var(--white); border: var(--line); box-shadow: calc(var(--sx) * 8px) 8px 0 var(--navy-900); }
+  .price-card--featured .h3, .price-card--featured .price { color: var(--white); }
+  .price-card--featured .price small { color: var(--leaf-100); }
+  .price-card--featured .ticks .icon { color: var(--leaf-300); }
+  .price-card__badge { inset-block-start: -20px; padding: 6px 16px; border: var(--line); background: var(--aqua-500); color: var(--navy-950); font-size: var(--fs-sm); font-weight: var(--fw-black); rotate: 5deg; }
+  .price-card .btn { margin-block-start: auto; }
+  @media (min-width: 960px) { .price-card--featured { rotate: -1.5deg; } }
+
+  /* ---------- ביקורות ---------- */
+  .review .avatar { border: var(--line); }
+  @media (min-width: 960px) {
+    .review:nth-child(1) { rotate: -1.2deg; }
+    .review:nth-child(2) { rotate: 0.8deg; margin-block-start: var(--sp-6); }
+    .review:nth-child(3) { rotate: -0.6deg; }
+  }
+
+  /* ---------- אזורי שירות: שבבי טרצו גדולים ---------- */
+  .areas { background: var(--leaf-50); }
+  .areas__wrap { display: grid; gap: var(--sp-6); align-items: center; }
+  @media (min-width: 900px) { .areas__wrap { grid-template-columns: 0.9fr 1.1fr; gap: var(--sp-12); } }
+  .spots { justify-content: center; align-items: center; gap: var(--sp-3); }
+  .spots .tag { display: grid; place-items: center; width: 100px; height: 100px; padding: var(--sp-2); border: var(--line); border-radius: 50%;
+    text-align: center; line-height: 1.2; font-weight: var(--fw-bold); background: var(--white); rotate: -4deg; }
+  .spots .tag:nth-child(4n+2) { background: var(--aqua-100); rotate: 3deg; }
+  .spots .tag:nth-child(4n+3) { background: var(--leaf-100); rotate: -2deg; }
+  .spots .tag:nth-child(4n) { background: var(--stone-300); rotate: 5deg; }
+  .spots .tag--main { width: 124px; height: 124px;background: var(--navy-800); color: var(--white); font-size: var(--fs-md); font-weight: var(--fw-black); box-shadow: calc(var(--sx) * 4px) 4px 0 var(--aqua-500); }
+
+  /* ---------- שאלות ---------- */
+  .faq { gap: var(--sp-4); }
+  .faq details { border-radius: var(--radius-lg); box-shadow: calc(var(--sx) * 4px) 4px 0 var(--pc); }
+  .faq details[open] { background: var(--aqua-50); }
+  .faq summary::after { border: var(--line); background: var(--leaf-100); color: var(--leaf-800); width: 32px; height: 32px; }
+
+  /* ---------- קריאה לפעולה ---------- */
+  .cta { --pc: var(--leaf-500); position: relative; padding: var(--sp-12) var(--sp-6); background: var(--navy-800); color: var(--white); text-align: center; }
+  .cta .h2 { color: var(--white); text-wrap: balance; }
+  .cta .lead { color: var(--aqua-100); margin-block-start: var(--sp-3); }
+  .cta .btn-row { justify-content: center; margin-block-start: var(--sp-8); }
+  .cta .sticker--aqua { inset-block-start: -18px; inset-inline-start: 18px; }
+
+  .mobile-bar { grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr); background: var(--marble); border-top: var(--line); gap: var(--sp-3); padding-block-start: var(--sp-3); }
+  .mobile-bar .btn { padding-inline: var(--sp-3); }
+</style>
+</head>
+<body class="has-mobile-bar">
+<div class="draft-banner">טיוטת עיצוב · גרסה 4 מתוך 5 · טרצו · מחירים, ביקורות ומספרים הם דוגמה · <a href="../index.html">חזרה לתוכנית</a></div>
+
+<div class="terrazzo" id="top">
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header__bar">
+        <a class="brand" href="#top">
+          <img class="brand__icon" src="../assets/img/logo-icon-256.png" alt="" width="42" height="52">
+          <span><span class="brand__name">מקלחון <b>תל אביב</b></span><span class="brand__tag">ניקוי מקלחונים וחדרי רחצה</span></span>
+        </a>
+        <nav class="nav" aria-label="ניווט ראשי">
+          <a href="#services">שירותים</a><a href="#before-after">לפני ואחרי</a><a href="#pricing">מחירון</a><a href="#faq">שאלות</a>
+        </nav>
+        <div class="header-actions">
+          <a class="icon-btn" data-tel aria-label="להתקשר"><svg class="icon"><use href="#i-phone"/></svg></a>
+          <a class="btn btn--wa btn--sm" data-wa aria-label="וואטסאפ"><svg class="icon"><use href="#i-wa"/></svg><span class="hide-sm">וואטסאפ</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero container">
+    <div class="hero__copy">
+      <h1>הניקוי היסודי והעמוק ביותר <span class="mark">למקלחון</span></h1>
+      <p class="lead">נפרדים מהאבנית, העובש והכתמים. משרתים את תל אביב והמרכז.</p>
+    </div>
+    <div class="photo">
+      <div class="photo__frame" role="img" aria-label="חדר רחצה מואר עם מקלחון זכוכית נקי, רצפת טרצו וצמח פוטוס בחלון"></div>
+      <span class="sticker sticker--aqua"><svg class="icon"><use href="#i-drop"/></svg>בלי אבנית</span>
+      <span class="sticker sticker--leaf"><svg class="icon"><use href="#i-leaf"/></svg>ירוק ובטוח לבית</span>
+    </div>
+    <div class="hero__actions">
+      <div class="btn-row">
+        <a class="btn btn--wa btn--lg" data-wa><svg class="icon"><use href="#i-wa"/></svg>להזמנת ניקוי</a>
+        <a class="btn btn--outline btn--lg" href="#pricing">לצפייה במחירון</a>
+      </div>
+      <div class="rating">
+        <span class="rating__stars" aria-hidden="true"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span>
+        <span><strong class="ph">4.9</strong> מתוך 5 · <span class="ph">מעל 150 לקוחות</span> בתל אביב</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">מכירים את זה?</span>
+      <h2 class="h2">מה שספוג וחומר מהסופר לא מורידים</h2>
+      <p class="muted">המים בתל אביב קשים. אחרי כמה חודשים הזכוכית מאפירה והרובה משחירה.</p>
+    </div>
+    <div class="problems">
+      <div class="problem chunk reveal"><span class="dot"><svg class="icon"><use href="#i-glass"/></svg></span><h3>אבנית על הזכוכית</h3><p>שכבה לבנה ועכורה שחוזרת אחרי כל מקלחת.</p></div>
+      <div class="problem chunk reveal"><span class="dot"><svg class="icon"><use href="#i-grid"/></svg></span><h3>עובש ברובה</h3><p>קווים שחורים בין האריחים ובפינות.</p></div>
+      <div class="problem chunk reveal"><span class="dot"><svg class="icon"><use href="#i-drop"/></svg></span><h3>סיליקון שחור</h3><p>איטום ישן שספג רטיבות ונראה מלוכלך תמיד.</p></div>
+      <div class="problem chunk reveal"><span class="dot"><svg class="icon"><use href="#i-faucet"/></svg></span><h3>ברזים סתומים</h3><p>ראש מקלחת חלש וכתמי מים על הכרום.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--stone" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">השירותים</span>
+      <h2 class="h2">כל חדר הרחצה, מהזכוכית ועד הרובה</h2>
+    </div>
+    <div class="bento">
+      <article class="tile chunk tile--navy tile--big reveal">
+        <span class="dot"><svg class="icon"><use href="#i-glass"/></svg></span>
+        <h3>ניקוי מקלחון יסודי</h3>
+        <p>זכוכית, מסילות, ידיות ומגש, כולל הסרת אבנית מלאה.</p>
+        <ul class="ticks"><li><svg class="icon"><use href="#i-check"/></svg>הסרת אבנית מהזכוכית</li><li><svg class="icon"><use href="#i-check"/></svg>מסילות, ידיות ומגש</li><li><svg class="icon"><use href="#i-check"/></svg>ברזים וראש מקלחת</li></ul>
+        <span class="tile__from">החל מ-<span class="ph">₪350</span></span>
+      </article>
+      <article class="tile chunk tile--aqua reveal"><span class="dot"><svg class="icon"><use href="#i-grid"/></svg></span><h3 class="h3">ניקוי וחידוש רובה</h3><p>ניקוי עמוק בין האריחים והחזרת הצבע המקורי.</p></article>
+      <article class="tile chunk tile--leaf reveal"><span class="dot"><svg class="icon"><use href="#i-drop"/></svg></span><h3 class="h3">החלפת סיליקון</h3><p>הסרת האיטום הישן והשחור ואיטום חדש ונקי.</p></article>
+      <article class="tile chunk tile--marble tile--wide reveal"><span class="dot"><svg class="icon"><use href="#i-shield"/></svg></span><h3 class="h3">ציפוי מגן לזכוכית</h3><p>שכבה שקופה שמאטה את חזרת האבנית והכתמים.</p></article>
+      <article class="tile chunk tile--aqua tile--wide-lg reveal"><span class="dot"><svg class="icon"><use href="#i-faucet"/></svg></span><h3 class="h3">ברזים וראש מקלחת</h3><p>פירוק אבנית מהברזים, מהפיה ומראש המקלחת.</p></article>
+      <article class="tile chunk tile--leaf tile--wide-lg reveal"><span class="dot"><svg class="icon"><use href="#i-sparkle"/></svg></span><h3 class="h3">חדר רחצה מלא</h3><p>אסלה, כיור, אריחים, מראות ורצפה בביקור אחד.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section terrazzo" id="before-after">
+  <div class="container ba-wrap">
+    <div class="ba-card chunk reveal">
+      <span class="eyebrow">לפני ואחרי</span>
+      <h2 class="h2">גררו וראו את ההבדל</h2>
+      <p class="lead">כאן יופיעו תמונות אמיתיות מעבודות שלכם. כרגע זו הדמיה מאותה תמונה.</p>
+      <ul class="ticks">
+        <li><svg class="icon"><use href="#i-check"/></svg>זכוכית שקופה בלי שכבה לבנה</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>רובה בהירה ואחידה</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>ברזים מבריקים</li>
+      </ul>
+    </div>
+    <div class="ba reveal">
+      <img class="ba__img" src="../assets/img/hero-clean-900.webp" alt="אחרי הניקוי">
+      <img class="ba__img ba__before" src="../assets/img/hero-clean-900.webp" alt="לפני הניקוי (הדמיה)">
+      <span class="ba__handle"></span>
+      <span class="ba__label ba__label--before">לפני</span><span class="ba__label ba__label--after">אחרי</span>
+      <input type="range" min="0" max="100" value="50" dir="ltr" aria-label="השוואת לפני ואחרי">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <span class="eyebrow">איך זה עובד</span>
+      <h2 class="h2">ארבעה צעדים למקלחת שנראית חדשה</h2>
+    </div>
+    <ol class="steps">
+      <li class="step reveal"><h3 class="h3">שולחים תמונה</h3><p>צלמו את המקלחון ושלחו בוואטסאפ.</p></li>
+      <li class="step reveal"><h3 class="h3">מקבלים מחיר</h3><p>הצעת מחיר מדויקת, <span class="ph">תוך שעה</span> בשעות הפעילות.</p></li>
+      <li class="step reveal"><h3 class="h3">קובעים מועד</h3><p>בוקר, צהריים או ערב. מה שנוח לכם.</p></li>
+      <li class="step reveal"><h3 class="h3">נכנסים למקלחת</h3><p>נקייה, מבריקה ומוגנת.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--tint" id="pricing">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <span class="eyebrow">מחירון</span>
+      <h2 class="h2">מחיר ברור לפני שמתחילים</h2>
+      <p class="muted">המחיר הסופי לפי גודל ומצב. שולחים תמונה ומקבלים מחיר מדויק.</p>
+    </div>
+    <div class="grid grid--3">
+      <article class="card price-card reveal"><h3 class="h3">ניקוי מקלחון</h3><div class="price"><small>החל מ-</small><span class="ph">₪350</span></div>
+        <ul class="ticks"><li><svg class="icon"><use href="#i-check"/></svg>הסרת אבנית מהזכוכית</li><li><svg class="icon"><use href="#i-check"/></svg>מסילות, ידיות ומגש</li><li><svg class="icon"><use href="#i-check"/></svg>ברזים וראש מקלחת</li></ul>
+        <a class="btn btn--outline btn--block" data-wa="היי, אשמח להצעת מחיר לניקוי מקלחון">להצעת מחיר</a></article>
+      <article class="card price-card price-card--featured reveal"><span class="price-card__badge">הכי מבוקש</span><h3 class="h3">מקלחון + ציפוי מגן</h3><div class="price"><small>החל מ-</small><span class="ph">₪550</span></div>
+        <ul class="ticks"><li><svg class="icon"><use href="#i-check"/></svg>כל מה שבניקוי המקלחון</li><li><svg class="icon"><use href="#i-check"/></svg>ציפוי מגן שקוף לזכוכית</li><li><svg class="icon"><use href="#i-check"/></svg>ניקוי רובה במקלחון</li></ul>
+        <a class="btn btn--white btn--block" data-wa="היי, אשמח להצעת מחיר למקלחון עם ציפוי מגן">להצעת מחיר</a></article>
+      <article class="card price-card reveal"><h3 class="h3">חדר רחצה מלא</h3><div class="price"><small>החל מ-</small><span class="ph">₪750</span></div>
+        <ul class="ticks"><li><svg class="icon"><use href="#i-check"/></svg>מקלחון, אסלה וכיור</li><li><svg class="icon"><use href="#i-check"/></svg>אריחים, מראות ורצפה</li><li><svg class="icon"><use href="#i-check"/></svg>רובה בכל החדר</li></ul>
+        <a class="btn btn--outline btn--block" data-wa="היי, אשמח להצעת מחיר לחדר רחצה מלא">להצעת מחיר</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">לקוחות מספרים</span><h2 class="h2">מה אומרים בשכונה</h2></div>
+    <div class="grid grid--3">
+      <figure class="card review reveal" style="margin:0"><span class="rating__stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span><blockquote class="review__text ph" style="margin:0">הזכוכית נראית כמו ביום שהתקינו אותה. לא האמנתי שזה אותו מקלחון.</blockquote><figcaption class="review__who"><span class="avatar">מ</span><span><b>מיכל</b><br><span class="muted">פלורנטין</span></span></figcaption></figure>
+      <figure class="card review reveal" style="margin:0"><span class="rating__stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span><blockquote class="review__text ph" style="margin:0">הגיעו בזמן, עבדו נקי והרובה חזרה להיות לבנה. ממליץ.</blockquote><figcaption class="review__who"><span class="avatar">א</span><span><b>אורי</b><br><span class="muted">רמת גן</span></span></figcaption></figure>
+      <figure class="card review reveal" style="margin:0"><span class="rating__stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span><blockquote class="review__text ph" style="margin:0">שלחתי תמונה בבוקר, אחר הצהריים המקלחת כבר הייתה מבריקה.</blockquote><figcaption class="review__who"><span class="avatar">נ</span><span><b>נועה</b><br><span class="muted">הצפון הישן</span></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section areas">
+  <div class="container areas__wrap">
+    <div class="section-head reveal" style="margin:0">
+      <span class="eyebrow">אזורי שירות</span>
+      <h2 class="h2">מגיעים אליכם, מיפו ועד הרצליה</h2>
+      <p class="muted">תל אביב והמרכז. לא בטוחים שאתם באזור? שלחו הודעה ונבדוק.</p>
+    </div>
+    <ul class="tags spots reveal">
+      <li class="tag tag--main">תל אביב-יפו</li><li class="tag">רמת גן</li><li class="tag">גבעתיים</li><li class="tag">חולון</li>
+      <li class="tag">בת ים</li><li class="tag">בני ברק</li><li class="tag">הרצליה</li><li class="tag">רמת השרון</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--stone" id="faq">
+  <div class="container" style="max-width:820px">
+    <div class="section-head section-head--center reveal"><span class="eyebrow">שאלות נפוצות</span><h2 class="h2">לפני שמזמינים</h2></div>
+    <div class="faq">
+      <details><summary>כמה זמן לוקח ניקוי מקלחון?</summary><p>בדרך כלל <span class="ph">שעתיים עד שלוש</span>. חדר רחצה מלא לוקח יותר.</p></details>
+      <details><summary>באילו חומרים אתם משתמשים?</summary><p>חומרים מקצועיים שבטוחים לזכוכית, לשיש ולאריחים. אפשר לבקש חומרים ידידותיים לסביבה.</p></details>
+      <details><summary>האבנית לא תחזור אחרי שבוע?</summary><p>האבנית חוזרת עם הזמן כי המים קשים. ציפוי המגן מאט אותה מאוד, ונשאיר לכם טיפים לתחזוקה.</p></details>
+      <details><summary>צריך להיות בבית בזמן הניקוי?</summary><p>לא חייבים. אפשר להשאיר מפתח או לתאם עם השכנים.</p></details>
+      <details><summary>לאילו אזורים אתם מגיעים?</summary><p>תל אביב-יפו, רמת גן, גבעתיים, חולון, בת ים, בני ברק, הרצליה ורמת השרון.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta chunk reveal">
+      <span class="sticker sticker--aqua"><svg class="icon"><use href="#i-camera"/></svg>תמונה אחת מספיקה</span>
+      <h2 class="h2">המקלחת שלכם יכולה להיראות ככה מחר</h2>
+      <p class="lead">שלחו תמונה בוואטסאפ וקבלו מחיר.</p>
+      <div class="btn-row">
+        <a class="btn btn--wa btn--lg" data-wa><svg class="icon"><use href="#i-wa"/></svg>שלחו תמונה בוואטסאפ</a>
+        <a class="btn btn--white btn--lg" data-tel><svg class="icon"><use href="#i-phone"/></svg><span data-phone-text></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><a class="brand" href="#top"><img class="brand__icon" src="../assets/img/logo-icon-256.png" alt="" width="42" height="52"><span class="brand__name" style="color:#fff">מקלחון <b>תל אביב</b></span></a>
+        <p style="margin-block-start:var(--sp-3);max-width:340px">ניקוי יסודי למקלחונים וחדרי רחצה בתל אביב והמרכז.</p></div>
+      <div><h4>שעות פעילות</h4><ul><li class="ph">א׳-ה׳ 08:00-19:00</li><li class="ph">ו׳ 08:00-13:00</li></ul></div>
+      <div><h4>יצירת קשר</h4><ul><li><a data-tel><span data-phone-text></span></a></li><li><a data-wa>וואטסאפ</a></li></ul></div>
+    </div>
+    <div class="footer__bottom">© 2026 מקלחון תל אביב · כל הזכויות שמורות</div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn--outline" data-tel><svg class="icon"><use href="#i-phone"/></svg>חייגו</a>
+  <a class="btn btn--wa" data-wa><svg class="icon"><use href="#i-wa"/></svg>הצעת מחיר בוואטסאפ</a>
+</div>
+
+<script src="../design-system/site.js"></script>
+</body>
+</html>

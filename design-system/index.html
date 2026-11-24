@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מערכת עיצוב | מקלחון תל אביב</title>
+<link rel="icon" href="../assets/img/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Rubik:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { background: var(--marble); }
+  .ds-top { padding-block: var(--sp-10) var(--sp-6); background: linear-gradient(135deg, var(--aqua-50), var(--leaf-50)); border-bottom: 1px solid var(--color-line); }
+  .ds-top p { max-width: 640px; margin-block-start: var(--sp-3); color: var(--color-ink-soft); }
+  .ds-nav { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-block-start: var(--sp-6); }
+  .ds-section { padding-block: var(--sp-12); border-bottom: 1px solid var(--color-line); }
+  .ds-section > .container > h2 { font-size: var(--fs-xl); margin-block-end: var(--sp-2); }
+  .ds-section > .container > p { color: var(--color-muted); margin-block-end: var(--sp-6); max-width: 680px; }
+  .ds-label { font-size: var(--fs-xs); color: var(--color-muted); font-weight: var(--fw-bold); margin-block: var(--sp-6) var(--sp-3); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: var(--sp-3); }
+  .sw { border-radius: var(--radius-md); overflow: hidden; background: var(--white); border: 1px solid var(--color-line); font-size: var(--fs-xs); }
+  .sw i { display: block; height: 64px; }
+  .sw span { display: block; padding: 8px 10px; line-height: 1.35; }
+  .sw code { direction: ltr; display: inline-block; color: var(--color-muted); }
+  .family { display: grid; gap: var(--sp-4); }
+  .family h3 { font-size: var(--fs-md); margin-block-end: var(--sp-2); }
+  .type-row { display: grid; gap: var(--sp-1); padding-block: var(--sp-4); border-bottom: 1px dashed var(--color-line); }
+  .type-row small { color: var(--color-muted); font-size: var(--fs-xs); direction: rtl; }
+  .demo-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+  .demo-dark { padding: var(--sp-6); border-radius: var(--radius-lg); background: url("../assets/img/hero-clean-900.webp") center 40% / cover; }
+  .scale { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: flex-end; }
+  .scale div { background: var(--aqua-300); border-radius: 4px; }
+  .scale figure { margin: 0; text-align: center; font-size: var(--fs-xs); color: var(--color-muted); }
+  .radii { display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+  .radii div { width: 96px; height: 96px; background: var(--white); border: 2px solid var(--navy-800); display: grid; place-items: center; font-size: var(--fs-xs); }
+  .logo-board { display: grid; gap: var(--sp-4); }
+  @media (min-width: 768px) { .logo-board { grid-template-columns: repeat(3, 1fr); } }
+  .logo-tile { border-radius: var(--radius-lg); padding: var(--sp-8) var(--sp-4); display: grid; place-items: center; gap: var(--sp-3); min-height: 200px; text-align: center; font-size: var(--fs-xs); }
+  .rules { display: grid; gap: var(--sp-4); }
+  @media (min-width: 768px) { .rules { grid-template-columns: 1fr 1fr; } }
+  .rule { padding: var(--sp-5); border-radius: var(--radius-md); background: var(--white); border-inline-start: 4px solid var(--leaf-600); }
+  .rule--no { border-inline-start-color: var(--danger); }
+  .rule ul { margin: var(--sp-2) 0 0; padding-inline-start: var(--sp-5); color: var(--color-ink-soft); font-size: var(--fs-sm); }
+</style>
+</head>
+<body>
+<div class="draft-banner">מערכת העיצוב · <a href="../index.html">חזרה לתוכנית</a></div>
+
+<header class="ds-top">
+  <div class="container">
+    <span class="eyebrow">מקלחון תל אביב</span>
+    <h1 class="h1" style="font-size:var(--fs-2xl);margin-block-start:var(--sp-2)">מערכת העיצוב</h1>
+    <p>שלושה קבצים שכל הגרסאות משתמשות בהם: <b>tokens.css</b> (צבעים, טיפוגרפיה, מרווחים), <b>components.css</b> (רכיבים) ו-<b>site.js</b> (אייקונים, קישורי וואטסאפ, סליידר). הצבעים לקוחים מהלוגו, מתמונת הרקע ומהצמחייה שבה.</p>
+    <nav class="ds-nav">
+      <a class="tag" href="#colors">צבעים</a><a class="tag" href="#type">טיפוגרפיה</a><a class="tag" href="#logo">לוגו</a><a class="tag" href="#buttons">כפתורים</a><a class="tag" href="#components">רכיבים</a><a class="tag" href="#space">מרווחים וצורות</a><a class="tag" href="#rules">כללים</a>
+    </nav>
+  </div>
+</header>
+
+<section class="ds-section" id="colors">
+  <div class="container">
+    <h2>צבעים</h2>
+    <p>ארבע משפחות: הנייבי והטורקיז מהלוגו, הירוק מהפוטוס בחלון, והאבן מהטרצו והשיש. כפתורי פעולה בטורקיז או בירוק וואטסאפ. טקסט תמיד בנייבי.</p>
+    <div class="ds-label">נייבי · לוגו וטקסט</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--navy-950)"></i><span>navy-950<br><code>#0a1c31</code></span></div>
+      <div class="sw"><i style="background:var(--navy-900)"></i><span>navy-900 · טקסט<br><code>#0f2742</code></span></div>
+      <div class="sw"><i style="background:var(--navy-800)"></i><span>navy-800 · לוגו<br><code>#16365c</code></span></div>
+      <div class="sw"><i style="background:var(--navy-600)"></i><span>navy-600<br><code>#2a5784</code></span></div>
+      <div class="sw"><i style="background:var(--navy-400)"></i><span>navy-400<br><code>#6f8fb1</code></span></div>
+    </div>
+    <div class="ds-label">מים · טורקיז הלוגו</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--aqua-700)"></i><span>aqua-700<br><code>#0a7ea8</code></span></div>
+      <div class="sw"><i style="background:var(--aqua-600)"></i><span>aqua-600 · כפתור<br><code>#0b93c4</code></span></div>
+      <div class="sw"><i style="background:var(--aqua-500)"></i><span>aqua-500<br><code>#1fb0de</code></span></div>
+      <div class="sw"><i style="background:var(--aqua-300)"></i><span>aqua-300<br><code>#7fd3ec</code></span></div>
+      <div class="sw"><i style="background:var(--aqua-100)"></i><span>aqua-100<br><code>#ddf3f8</code></span></div>
+      <div class="sw"><i style="background:var(--aqua-50)"></i><span>aqua-50<br><code>#f1fafc</code></span></div>
+    </div>
+    <div class="ds-label">צמחייה · הפוטוס בחלון</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--leaf-800)"></i><span>leaf-800<br><code>#1f4d22</code></span></div>
+      <div class="sw"><i style="background:var(--leaf-700)"></i><span>leaf-700<br><code>#2f6b2e</code></span></div>
+      <div class="sw"><i style="background:var(--leaf-600)"></i><span>leaf-600 · הדגשה<br><code>#3f8235</code></span></div>
+      <div class="sw"><i style="background:var(--leaf-500)"></i><span>leaf-500<br><code>#5e9b3a</code></span></div>
+      <div class="sw"><i style="background:var(--leaf-300)"></i><span>leaf-300<br><code>#a8c97a</code></span></div>
+      <div class="sw"><i style="background:var(--leaf-100)"></i><span>leaf-100<br><code>#e3efd6</code></span></div>
+      <div class="sw"><i style="background:var(--leaf-50)"></i><span>leaf-50<br><code>#f2f7ec</code></span></div>
+    </div>
+    <div class="ds-label">אבן וטקסטיל · טרצו, שיש, מגבת ושטיח</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--stone-700)"></i><span>stone-700<br><code>#6b6058</code></span></div>
+      <div class="sw"><i style="background:var(--stone-500)"></i><span>stone-500<br><code>#8a7e74</code></span></div>
+      <div class="sw"><i style="background:var(--stone-300)"></i><span>stone-300<br><code>#c9c0b6</code></span></div>
+      <div class="sw"><i style="background:var(--stone-100)"></i><span>stone-100<br><code>#ece8e2</code></span></div>
+      <div class="sw"><i style="background:var(--marble)"></i><span>marble<br><code>#f7f6f3</code></span></div>
+      <div class="sw"><i style="background:var(--towel-500)"></i><span>towel-500<br><code>#4a8fc0</code></span></div>
+      <div class="sw"><i style="background:var(--slate-600)"></i><span>slate-600<br><code>#48677d</code></span></div>
+    </div>
+    <div class="ds-label">פונקציונליים</div>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--wa-green)"></i><span>wa-green · וואטסאפ<br><code>#14833f</code></span></div>
+      <div class="sw"><i style="background:var(--star)"></i><span>star · דירוג<br><code>#f5b324</code></span></div>
+      <div class="sw"><i style="background:var(--danger)"></i><span>danger · שגיאה<br><code>#c2413b</code></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-section" id="type">
+  <div class="container">
+    <h2>טיפוגרפיה</h2>
+    <p>ברירת המחדל: Rubik לכותרות ו-Heebo לגוף, שתיהן עם עברית מלאה ב-Google Fonts. כל גרסה יכולה להחליף את --font-display ו---font-body. הגדלים נוזליים: קטנים במובייל וגדלים עד דסקטופ.</p>
+    <div class="type-row"><small>fs-3xl · כותרת ראשית · 36-60px</small><span class="h1">הניקוי העמוק ביותר למקלחון</span></div>
+    <div class="type-row"><small>fs-2xl · כותרת אזור · 30-44px</small><span class="h2">כל חדר הרחצה, מהזכוכית ועד הרובה</span></div>
+    <div class="type-row"><small>fs-xl · 24-32px</small><span style="font-family:var(--font-display);font-size:var(--fs-xl);font-weight:700">מחיר ברור לפני שמתחילים</span></div>
+    <div class="type-row"><small>fs-lg · פתיח · 19-22px</small><span class="lead">נפרדים מהאבנית, העובש והכתמים. משרתים את תל אביב והמרכז.</span></div>
+    <div class="type-row"><small>fs-md · גוף · 17px</small><span>זכוכית, מסילות, ידיות ומגש, כולל הסרת אבנית מלאה. המחיר הסופי לפי גודל ומצב.</span></div>
+    <div class="type-row"><small>fs-sm · משני · 15px</small><span style="font-size:var(--fs-sm)" class="muted">שולחים תמונה ומקבלים מחיר מדויק.</span></div>
+    <div class="type-row"><small>eyebrow · תווית מעל כותרת</small><span class="eyebrow">השירותים</span></div>
+    <div class="ds-label">צמדי פונטים לפי גרסה</div>
+    <div class="grid grid--3">
+      <div class="card"><b>גרסאות 1, 4</b><p class="muted" style="font-size:var(--fs-sm)">Rubik · עגול, ידידותי, נקרא מצוין בגדלים גדולים</p></div>
+      <div class="card"><b>גרסה 2</b><p class="muted" style="font-size:var(--fs-sm)">Heebo 800 · נקי ומודרני</p></div>
+      <div class="card"><b>גרסה 3</b><p class="muted" style="font-size:var(--fs-sm)">Frank Ruhl Libre + Assistant · סריף אלגנטי</p></div>
+      <div class="card"><b>גרסה 5</b><p class="muted" style="font-size:var(--fs-sm)">Assistant · קומפקטי, מרגיש כמו אפליקציה</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-section" id="logo">
+  <div class="container">
+    <h2>לוגו</h2>
+    <p>בדף משתמשים במגן עם ראש המקלחת לצד שם העסק בעברית. הלוגו המקורי כולל טקסט באנגלית, ולכן הוא לא מופיע בדף. אם יש שם עברי רשמי, מחליפים את הטקסט ליד המגן.</p>
+    <div class="logo-board">
+      <div class="logo-tile" style="background:var(--white)"><a class="brand"><img class="brand__icon" src="../assets/img/logo-icon-256.png" alt="" width="42" height="52"><span><span class="brand__name">מקלחון <b>תל אביב</b></span><span class="brand__tag">ניקוי מקלחונים וחדרי רחצה</span></span></a>על רקע בהיר: השימוש הראשי</div>
+      <div class="logo-tile" style="background:var(--navy-900);color:#fff"><a class="brand"><img class="brand__icon" src="../assets/img/logo-icon-256.png" alt="" width="42" height="52"><span class="brand__name" style="color:#fff">מקלחון <b style="color:var(--aqua-300)">תל אביב</b></span></a>על רקע כהה (פוטר)</div>
+      <div class="logo-tile" style="background:var(--white)"><img src="../assets/img/logo-full.png" alt="הלוגו המקורי" style="max-width:220px">הקובץ המקורי (באנגלית): לרשתות ולמדבקות, לא בדף</div>
+    </div>
+    <div class="ds-label">קבצים</div>
+    <ul class="tags"><li class="tag">assets/img/logo-icon.png · מגן שקוף</li><li class="tag">logo-icon-256.png · לאתר</li><li class="tag">logo-full.png · מקורי שקוף</li><li class="tag">favicon-32 / favicon-180</li></ul>
+  </div>
+</section>
+
+<section class="ds-section" id="buttons">
+  <div class="container">
+    <h2>כפתורים</h2>
+    <p>פעולה ראשית אחת בכל מסך. וואטסאפ תמיד בירוק עם האייקון. גובה מינימלי 52px כדי שיהיה נוח ללחוץ באגודל.</p>
+    <div class="demo-row">
+      <a class="btn btn--primary">להזמנת ניקוי</a>
+      <a class="btn btn--wa"><svg class="icon"><use href="#i-wa"/></svg>וואטסאפ</a>
+      <a class="btn btn--leaf">ירוק עלים</a>
+      <a class="btn btn--navy">נייבי</a>
+      <a class="btn btn--outline">משני</a>
+    </div>
+    <div class="ds-label">גדלים</div>
+    <div class="demo-row"><a class="btn btn--primary btn--lg">גדול 60</a><a class="btn btn--primary">רגיל 52</a><a class="btn btn--primary btn--sm">קטן 42</a><a class="icon-btn"><svg class="icon"><use href="#i-phone"/></svg></a></div>
+    <div class="ds-label">על התמונה: זכוכית</div>
+    <div class="demo-dark demo-row"><a class="btn btn--primary">להזמנת ניקוי</a><a class="btn btn--glass">לצפייה במחירון</a></div>
+  </div>
+</section>
+
+<section class="ds-section" id="components">
+  <div class="container">
+    <h2>רכיבים</h2>
+    <p>כל רכיב מוגדר פעם אחת ב-components.css. גרסה משנה מראה רק דרך הטוקנים או בתוך קובץ הגרסה.</p>
+
+    <div class="ds-label">שבבי יתרונות ודירוג (על התמונה)</div>
+    <div class="demo-dark" style="display:grid;gap:var(--sp-3);max-width:460px">
+      <div class="chips">
+        <div class="chip glass"><svg class="icon"><use href="#i-check"/></svg>הסרת אבנית וסבון</div>
+        <div class="chip glass"><svg class="icon"><use href="#i-check"/></svg>טיפול בעובש ורובה</div>
+        <div class="chip glass"><svg class="icon"><use href="#i-check"/></svg>ציפוי מגן לזכוכית</div>
+      </div>
+      <div class="rating glass"><span class="rating__stars"><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg></span><span><strong>4.9</strong> מתוך 5</span></div>
+    </div>
+
+    <div class="ds-label">כרטיס שירות · כרטיס מחיר · שלב</div>
+    <div class="grid grid--3">
+      <article class="card service-card"><span class="service-card__icon"><svg class="icon"><use href="#i-glass"/></svg></span><h3 class="h3">ניקוי מקלחון יסודי</h3><p>זכוכית, מסילות, ידיות ומגש.</p></article>
+      <article class="card price-card price-card--featured"><span class="price-card__badge">הכי מבוקש</span><h3 class="h3">מקלחון + ציפוי</h3><div class="price"><small>החל מ-</small>₪550</div><ul class="ticks"><li><svg class="icon"><use href="#i-check"/></svg>ציפוי מגן שקוף</li></ul></article>
+      <ol class="steps" style="grid-template-columns:1fr"><li class="step"><h3 class="h3">שולחים תמונה</h3><p>צלמו את המקלחון ושלחו בוואטסאפ.</p></li></ol>
+    </div>
+
+    <div class="ds-label">אזורים · בורר אפשרויות · שדה</div>
+    <div class="grid grid--3">
+      <ul class="tags"><li class="tag tag--main">תל אביב-יפו</li><li class="tag">רמת גן</li><li class="tag">גבעתיים</li><li class="tag">חולון</li></ul>
+      <div class="seg"><input type="radio" name="s" id="s1" checked><label for="s1">מקלחון</label><input type="radio" name="s" id="s2"><label for="s2">חדר רחצה</label></div>
+      <div class="field"><label for="p">טלפון</label><input class="input" id="p" type="tel" placeholder="050-000-0000"></div>
+    </div>
+
+    <div class="ds-label">שאלות נפוצות · לפני/אחרי</div>
+    <div class="grid grid--2">
+      <div class="faq"><details open><summary>כמה זמן לוקח ניקוי?</summary><p>בדרך כלל שעתיים עד שלוש.</p></details><details><summary>באילו חומרים?</summary><p>חומרים מקצועיים ובטוחים.</p></details></div>
+      <div class="ba"><img class="ba__img" src="../assets/img/hero-clean-900.webp" alt=""><img class="ba__img ba__before" src="../assets/img/hero-clean-900.webp" alt=""><span class="ba__handle"></span><span class="ba__label ba__label--before">לפני</span><span class="ba__label ba__label--after">אחרי</span><input type="range" min="0" max="100" value="50" dir="ltr" aria-label="השוואה"></div>
+    </div>
+
+    <div class="ds-label">אייקונים (site.js)</div>
+    <div class="demo-row" id="icon-list" style="color:var(--navy-800)"></div>
+  </div>
+</section>
+
+<section class="ds-section" id="space">
+  <div class="container">
+    <h2>מרווחים וצורות</h2>
+    <p>מרווחים על בסיס 4px. הפינות עגולות, והקשת (radius-arch) לקוחה מהחלונות בתמונה.</p>
+    <div class="scale">
+      <figure><div style="width:8px;height:8px"></div>8</figure><figure><div style="width:12px;height:12px"></div>12</figure><figure><div style="width:16px;height:16px"></div>16</figure><figure><div style="width:24px;height:24px"></div>24</figure><figure><div style="width:32px;height:32px"></div>32</figure><figure><div style="width:48px;height:48px"></div>48</figure><figure><div style="width:64px;height:64px"></div>64</figure><figure><div style="width:96px;height:96px"></div>96</figure>
+    </div>
+    <div class="ds-label">פינות</div>
+    <div class="radii"><div style="border-radius:var(--radius-sm)">sm 10</div><div style="border-radius:var(--radius-md)">md 16</div><div style="border-radius:var(--radius-lg)">lg 24</div><div style="border-radius:var(--radius-xl)">xl 32</div><div style="border-radius:var(--radius-arch);height:130px">קשת</div></div>
+  </div>
+</section>
+
+<section class="ds-section" id="rules">
+  <div class="container">
+    <h2>כללים</h2>
+    <div class="rules">
+      <div class="rule"><b>כן</b><ul><li>עברית בלבד, מימין לשמאל, מאפיינים לוגיים ב-CSS</li><li>פעולה ראשית אחת: הודעת וואטסאפ עם תמונה</li><li>ירוק הצמחייה בכל גרסה, לפחות באזור אחד</li><li>מספרים, מחירים וביקורות רק אמיתיים לפני העלייה לאוויר</li><li>תמונות לפני/אחרי אמיתיות מעבודות של העסק</li></ul></div>
+      <div class="rule rule--no"><b>לא</b><ul><li>טקסט באנגלית בדף (כולל הלוגו המקורי)</li><li>טקסט לבן על טורקיז בהיר בגודל קטן (ניגודיות חלשה)</li><li>יותר משני צבעי כפתור באותו מסך</li><li>הבטחות כמו "האבנית לא תחזור לעולם"</li><li>טופס שאוסף פרטים לשרת בלי מדיניות פרטיות</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<script src="site.js"></script>
+<script>
+  document.getElementById("icon-list").innerHTML = Object.keys(ICONS)
+    .map((k) => `<span class="tag" style="display:inline-flex;gap:6px;align-items:center"><svg class="icon"><use href="#i-${k}"/></svg>${k}</span>`).join("");
+</script>
+</body>
+</html>
