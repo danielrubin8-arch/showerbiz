@@ -36,7 +36,7 @@ html, body { background: var(--marble); }
 .cam__img, .cam__dirt { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
 /* הזכוכית: שכבת האבנית חתוכה לצורת המקלחון, והמגב מנקה מלמעלה למטה */
 .glasspane { position: absolute; inset: 0;
-  clip-path: polygon(20.8% 28%, 54.7% 22.35%, 80.9% 28.7%, 80.9% 71.05%, 54.7% 76.5%, 20.65% 71.3%); }
+  clip-path: polygon(19.8% 27.7%, 54.7% 21.8%, 81.9% 28.4%, 81.9% 71.7%, 54.7% 77.3%, 19.6% 72%); }
 .cam__dirt { --w: 0%;
   -webkit-mask-image: linear-gradient(to bottom, transparent calc(var(--w) - 1.2%), #000 calc(var(--w) + 0.6%));
           mask-image: linear-gradient(to bottom, transparent calc(var(--w) - 1.2%), #000 calc(var(--w) + 0.6%)); }
@@ -458,7 +458,7 @@ html, body { background: var(--marble); }
 
     // השיא: מגב עובר מלמעלה למטה על הזכוכית
     const w = reduced ? (p > WIPE[0] ? 1 : 0) : clamp((p - WIPE[0]) / (WIPE[1] - WIPE[0]));
-    const gy = 21 + w * 57;
+    const gy = 21 + w * 57.5;
     dirt.style.setProperty("--w", (w === 0 ? 0 : gy) + "%");
     dirt.style.opacity = w >= 1 ? 0 : 1;
     squeegee.style.top = gy + "%";
