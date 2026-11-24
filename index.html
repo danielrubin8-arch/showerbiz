@@ -373,21 +373,23 @@ html, body { background: var(--marble); }
   // לכל תחנה: התיבה בתמונה שהמצלמה מסגרת, והאזור במסך שבו היא יושבת (m מובייל, d דסקטופ)
   const STOPS = [
     { p: 0.00, box: [210, 560, 960, 2140], m: [0.06, 0.40, 0.94, 0.98], d: [0.08, 0.06, 0.92, 0.94], tag: "לפני" },
-    { p: 0.30, box: [260, 700, 920, 1560], m: [0.05, 0.11, 0.95, 0.50], d: [0.06, 0.06, 0.94, 0.94], tag: "אחרי" },
-    { p: 0.52, box: [380, 1180, 720, 1520], m: [0.08, 0.11, 0.92, 0.46], d: [0.08, 0.10, 0.92, 0.90], tag: "ברז, ידיות ומסילות" },
-    { p: 0.73, box: [900, 1030, 1152, 1560], m: [0.05, 0.10, 0.95, 0.42], d: [0.10, 0.10, 0.90, 0.90], tag: "מי מגיע" },
-    { p: 0.94, box: [210, 560, 960, 2140], m: [0.06, 0.09, 0.94, 0.58], d: [0.08, 0.06, 0.92, 0.94], tag: "המקלחון שלכם" },
+    { p: 0.28, box: [210, 560, 960, 2140], m: [0.06, 0.40, 0.94, 0.98], d: [0.08, 0.06, 0.92, 0.94], tag: "אחרי" },
+    { p: 0.42, box: [260, 700, 920, 1560], m: [0.05, 0.11, 0.95, 0.50], d: [0.06, 0.06, 0.94, 0.94], tag: "אחרי" },
+    { p: 0.60, box: [380, 1180, 720, 1520], m: [0.08, 0.11, 0.92, 0.46], d: [0.08, 0.10, 0.92, 0.90], tag: "ברז, ידיות ומסילות" },
+    { p: 0.77, box: [900, 1030, 1152, 1560], m: [0.05, 0.10, 0.95, 0.42], d: [0.10, 0.10, 0.90, 0.90], tag: "מי מגיע" },
+    { p: 0.95, box: [210, 560, 960, 2140], m: [0.06, 0.09, 0.94, 0.58], d: [0.08, 0.06, 0.92, 0.94], tag: "המקלחון שלכם" },
   ];
-  const WIPE = [0.06, 0.29];                // השיא: הזכוכית מתנקה
+  const MAP = [0, 2, 3, 4, 5];               // כפתור במפה -> תחנה (תחנה 1 היא המקלחון הנקי, חלק מהפתיחה)
+  const WIPE = [0.05, 0.24];                // השיא: הזכוכית מתנקה כשכל המקלחון בתמונה
   const WINS = [                            // מתי כל טקסט גלוי: נכנס, מלא, מתחיל לצאת, יצא
-    [-1, -1, 0.07, 0.12],
-    [0.22, 0.26, 0.37, 0.41],
-    [0.45, 0.49, 0.58, 0.62],
-    [0.66, 0.70, 0.80, 0.84],
-    [0.88, 0.92, 2, 2],
-    [0.11, 0.14, 0.21, 0.25],
+    [-1, -1, 0.06, 0.10],
+    [0.35, 0.39, 0.49, 0.53],
+    [0.55, 0.59, 0.66, 0.69],
+    [0.72, 0.75, 0.83, 0.86],
+    [0.89, 0.93, 2, 2],
+    [0.09, 0.12, 0.29, 0.33],
   ];
-  const TRACK_VH = 6.4;                     // אורך הגלילה בגבהי מסך
+  const TRACK_VH = 7.2;                     // אורך הגלילה בגבהי מסך
 
   const stage = document.querySelector(".stage");
   const cam = document.querySelector(".cam");
@@ -476,8 +478,8 @@ html, body { background: var(--marble); }
     finder.dataset.pos = c.near === STOPS.length - 1 ? "top" : "bottom";
     if (tag.textContent !== t) { tag.textContent = t; tag.dataset.state = t === "לפני" ? "before" : "after"; }
 
-    stage.style.setProperty("--top-scrim", String(1 - clamp((p - 0.23) / 0.05)));
-    stage.style.setProperty("--bottom-scrim", String(clamp((p - 0.14) / 0.08) * (1 - clamp((p - 0.84) / 0.06)) + clamp((p - 0.86) / 0.06) * 0.9));
+    stage.style.setProperty("--top-scrim", String(1 - clamp((p - 0.31) / 0.05)));
+    stage.style.setProperty("--bottom-scrim", String(clamp((p - 0.32) / 0.06) * (1 - clamp((p - 0.86) / 0.05)) + clamp((p - 0.88) / 0.05) * 0.9));
 
     wins.forEach((el, i) => {
       const [a, b, c2, d] = WINS[i];
@@ -488,15 +490,16 @@ html, body { background: var(--marble); }
       el.style.transform = reduced ? "" : `translate3d(0, ${(1 - op) * 14}px, 0)`;
       el.classList.toggle("is-live", op > 0.6);
     });
-    if (c.near !== live) {
-      live = c.near;
+    const mi = MAP.reduce((acc, st, j) => (c.near >= st ? j : acc), 0);
+    if (mi !== live) {
+      live = mi;
       mapBtns.forEach((b, i) => i === live ? b.setAttribute("aria-current", "step") : b.removeAttribute("aria-current"));
     }
-    dock.classList.toggle("is-away", p > 0.86);
+    dock.classList.toggle("is-away", p > 0.88);
   }
 
   function jump(i) {
-    scrollTo({ top: STOPS[i].p * maxScroll, behavior: reduced ? "auto" : "smooth" });
+    scrollTo({ top: STOPS[MAP[i]].p * maxScroll, behavior: reduced ? "auto" : "smooth" });
   }
   document.querySelectorAll("[data-jump]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); jump(+b.dataset.jump); }));
 
